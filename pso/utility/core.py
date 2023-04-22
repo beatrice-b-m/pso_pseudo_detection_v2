@@ -235,11 +235,12 @@ class BaseLine:
 
 def assemble_pred_map(pred_log, img_shape, patch_width, mode: str = 'pso'):
     half_width = int(0.5*patch_width)
-
+    
+    # get empty arrays to build pred_map with
     pred_map = np.zeros((img_shape[0], img_shape[1]), dtype=float)
     pred_count_map = np.zeros((img_shape[0], img_shape[1]), dtype=int)
 
-    # work in log space for ease of computation
+    # iterate through preds
     for pred in pred_log:
         y, x, p = pred
         
