@@ -8,22 +8,7 @@ from numba import njit
 
 
 class Particle:
-    """
-    Particle class represents a solution inside a pool(Swarm).
-    """
-
     def __init__(self, point, dim_shape, v_range):
-        """
-        Particle class constructor
-        :param dim_shape: tuple(no_dim, )
-            Shape of x(position), v(velocity).
-        :param dim_ranges: tuple(double)
-            Min and Max value(range) of dimension.
-        :param v_range: tuple(double)
-            Min and Max value(range) of velocity.
-        :param dim_ranges: list(tuple(double)) e.g. [(200, 2400), (300, 3200), (100, 256)]
-            Min and Max value(range) of velocity.
-        """
         random.seed(4)
         np.random.seed(4)
         self.point = np.array(point)
@@ -129,14 +114,6 @@ class Cluster:
     
     def _update_particle_velocities(self, p):
         # after evaluation, if topology is 'local'
-        """
-        It updates velocity of a particle.
-        It is used by optimize function.
-        :param p: Particle
-        Particle to update velocity.
-        :return: Particle
-             Particle with updated velocity.
-        """
         # update inertia weight
         iw = np.random.uniform(self.iw_range[0], self.iw_range[1], self.dim_shape)
         
@@ -156,10 +133,6 @@ class Cluster:
 
 
 class Swarm:  # CAT = opt
-    """
-    Swarm class represents a pool of solution(particle).
-    """
-
     def __init__(self, mammo, n_clusters, p_per_clust, dim_shape = (2,), patch_width = 256, 
                  max_v = 50, iw_range = (0.4, 0.9), c1_range = (0.5, 2.5), c2_range = (0.5, 2.5)):
         
@@ -290,15 +263,6 @@ class Swarm:  # CAT = opt
         
     def _update_particle_bests(self, p, fitness):
         # apply to p_array, updates bests after evaluation
-        """
-        It updates particle position.
-        :param p: Particle
-            Particle to updated position.
-        :param fitness: double
-            Fitness value or loss(to be optimized).
-        :return: Particle
-            Updated Particle.
-        """
         if fitness < p.pbest:
             p.pbest = fitness
             p.pbestpos = p.point
@@ -374,14 +338,6 @@ class Swarm:  # CAT = opt
         
     def _update_particle_velocities(self, p):
         # after evaluation
-        """
-        It updates velocity of a particle.
-        It is used by optimize function.
-        :param p: Particle
-        Particle to update velocity.
-        :return: Particle
-             Particle with updated velocity.
-        """
         # update inertia weight
         iw = np.random.uniform(self.iw_range[0], self.iw_range[1], self.dim_shape)
         
