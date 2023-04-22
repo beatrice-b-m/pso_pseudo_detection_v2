@@ -1,6 +1,5 @@
 import os
 import numpy as np
-from numba import njit
 from tensorflow.keras.models import load_model
 from tensorflow.keras.applications.resnet_v2 import preprocess_input
 
